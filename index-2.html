@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oase der Achtsamkeit – Rätselreise</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e6f2ef, #f9f9f9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.05);
+      max-width: 500px;
+      text-align: center;
+    }
+    .card h1 {
+      color: #4e9a8d;
+    }
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1.1rem;
+      border: 2px solid #cce5e0;
+      border-radius: 8px;
+      text-align: center;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #4e9a8d;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .progress {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      letter-spacing: 0.3rem;
+      color: #4e4e4e;
+    }
+    .result {
+      font-size: 1.4rem;
+      color: #2e7d32;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🧘‍♀️ Oase der Achtsamkeit – Rätselreise 🧘‍♂️</h1>
+    <p class="question" id="frage"></p>
+    <input type="text" id="antwort" maxlength="1">
+    <br>
+    <button onclick="pruefen()">Antworten</button>
+    <div class="result" id="meldung"></div>
+    <p class="progress" id="fortschritt"></p>
+  </div>
+
+  <script>
+    const fragen = [{'frage': 'Welcher Begriff beschreibt das bewusste Wahrnehmen des gegenwärtigen Moments?', 'loesung': 'A'}, {'frage': 'Was ist das Ziel der Meditation?', 'loesung': 'I'}, {'frage': 'Wie nennt man die Praxis, sich auf den Atem zu konzentrieren, um den Geist zu beruhigen?', 'loesung': 'A'}, {'frage': 'Welches Symbol wird oft mit Meditation und Achtsamkeit in Verbindung gebracht?', 'loesung': 'L'}, {'frage': 'Welches Wort beschreibt das Gefühl von Frieden und Akzeptanz in der Meditation?', 'loesung': 'G'}, {'frage': 'Was ist eine Technik, bei der man achtsam in den Körper hineinspürt, um Spannung zu lösen?', 'loesung': 'B'}, {'frage': 'Welcher Begriff beschreibt das Loslassen von negativen Gedanken und Emotionen?', 'loesung': 'L'}, {'frage': 'Welche Haltung fördert Entspannung und Achtsamkeit im Yoga und in der Meditation?', 'loesung': 'S'}, {'frage': 'Was ist der Hauptzweck der Achtsamkeitsmeditation?', 'loesung': 'B'}, {'frage': 'Welches Gefühl entsteht oft nach einer erfolgreichen Meditation?', 'loesung': 'F'}, {'frage': 'Welches Prinzip ist für die Meditation wichtig, um den Geist zu beruhigen?', 'loesung': 'G'}, {'frage': 'Was hilft dir, dich während der Meditation auf den Moment zu konzentrieren?', 'loesung': 'A'}];
+
+    let index = 0;
+    let ergebnis = Array(fragen.length).fill("_");
+
+    function zeigeFrage() {
+      document.getElementById('frage').textContent = fragen[index].frage;
+      document.getElementById('fortschritt').textContent = ergebnis.join(" ");
+      document.getElementById('antwort').value = "";
+      document.getElementById('meldung').textContent = "";
+    }
+
+    function pruefen() {
+      const eingabe = document.getElementById('antwort').value.toUpperCase();
+      const loesung = fragen[index].loesung;
+
+      if (eingabe === loesung) {
+        ergebnis[index] = loesung;
+        index++;
+        if (index < fragen.length) {
+          zeigeFrage();
+        } else {
+          document.getElementById('frage').textContent = "🎉 Du hast das Rätsel gelöst!";
+          document.getElementById('meldung').textContent = "Lösungswort: ZEN 💖";
+          document.getElementById('fortschritt').textContent = ergebnis.join(" ");
+          document.getElementById('antwort').style.display = 'none';
+        }
+      } else {
+        document.getElementById('meldung').textContent = "Hmm, das stimmt noch nicht. Versuch's nochmal! 😊";
+      }
+    }
+
+    zeigeFrage();
+  </script>
+</body>
+</html>
